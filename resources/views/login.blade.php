@@ -11,7 +11,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/templatemo-electric-xtra.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="shortcut icon" href="../images/telu-logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/user/telu-logo.png" type="image/x-icon">
     <style>
         .alert {
             margin: 10px 0 20px 0;

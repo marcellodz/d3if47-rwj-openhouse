@@ -5,31 +5,26 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Scanner Booth - Open House</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon"
-          href="{{ asset('images/user/telu-logo.png') }}"
-          type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/user/telu-logo.png') }}" type="image/x-icon">
 
     <!-- FONT -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet"
-          href="{{ asset('css/user/templatemo-electric-xtra.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user/templatemo-electric-xtra.css') }}">
 
     <!-- SCANNER CSS -->
-    <link rel="stylesheet"
-          href="{{ asset('css/user/scanner.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user/scanner.css') }}">
 
     <!-- FONT AWESOME -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- HTML5 QR -->
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -58,12 +53,9 @@
 
         <div class="nav-container">
 
-            <a href="{{ route('dashboard') }}"
-               class="logo-link">
+            <a href="{{ route('dashboard') }}" class="logo-link">
 
-                <img src="{{ asset('images/user/logo-openhouse.png') }}"
-                     alt="Logo"
-                     class="logo-svg">
+                <img src="{{ asset('images/user/logo-openhouse.png') }}" alt="Logo" class="logo-svg">
 
             </a>
 
@@ -72,8 +64,7 @@
     </nav>
 
     <!-- CONTENT -->
-    <section class="features"
-             id="features">
+    <section class="features" id="features">
 
         <div class="features-container">
 
@@ -110,8 +101,7 @@
 
         </button>
 
-        <button id="switchCamBtn"
-                style="display:none; margin-top:10px;">
+        <button id="switchCamBtn" style="display:none; margin-top:10px;">
 
             🔄 Ganti Kamera
 
@@ -205,38 +195,38 @@
 
             })
 
-            .then(res => res.json())
+                .then(res => res.json())
 
-            .then(data => {
+                .then(data => {
 
-                if (data.success) {
+                    if (data.success) {
 
-                    resultElement.innerHTML = `
+                        resultElement.innerHTML = `
                         <i class="fas fa-check-circle"></i>
                         ${data.message}
                     `;
 
-                } else {
+                    } else {
 
-                    resultElement.innerHTML = `
+                        resultElement.innerHTML = `
                         <i class="fas fa-exclamation-circle"></i>
                         ${data.message}
                     `;
 
-                }
+                    }
 
-            })
+                })
 
-            .catch(err => {
+                .catch(err => {
 
-                resultElement.innerHTML = `
+                    resultElement.innerHTML = `
                     <i class="fas fa-times-circle"></i>
                     Gagal kirim ke server.
                 `;
 
-                console.error(err);
+                    console.error(err);
 
-            });
+                });
 
         }
 
@@ -249,15 +239,52 @@
         function onScanSuccess(decodedText) {
 
             resultElement.innerHTML = `
-                <i class="fas fa-search"></i>
-                <b>${decodedText}</b>
-            `;
+        <i class="fas fa-search"></i>
+        <b>${decodedText}</b>
+    `;
 
             html5QrCode.stop()
 
                 .then(() => {
 
+                    /*
+                    =========================
+                    RESET STATE
+                    =========================
+                    */
+
+                    isScanning = false;
+
+                    startScanBtn.innerHTML =
+                        '🚀 Nyalakan Kamera';
+
+                    loadingElement.style.display =
+                        "block";
+
+                    /*
+                    =========================
+                    CLEAR SCANNER
+                    =========================
+                    */
+
+                    html5QrCode.clear();
+
+                    /*
+                    =========================
+                    KIRIM DATA
+                    =========================
+                    */
+
                     sendDataToLaravel(decodedText);
+
+                })
+
+                .catch(err => {
+
+                    console.error(
+                        "Gagal stop scanner:",
+                        err
+                    );
 
                 });
 
@@ -292,28 +319,28 @@
 
             )
 
-            .then(() => {
+                .then(() => {
 
-                resultElement.innerHTML = `
+                    resultElement.innerHTML = `
                     <i class="fas fa-camera"></i>
                     Arahkan kamera ke QR Code booth...
                 `;
 
-                loadingElement.style.display = "none";
+                    loadingElement.style.display = "none";
 
-            })
+                })
 
-            .catch(err => {
+                .catch(err => {
 
-                loadingElement.innerHTML = `
+                    loadingElement.innerHTML = `
                     <i class="fas fa-exclamation-triangle"></i>
                     Gagal membuka kamera:
                     ${err.message}
                 `;
 
-                console.error(err);
+                    console.error(err);
 
-            });
+                });
 
         }
 
@@ -364,8 +391,8 @@
 
                         const selectedCam =
                             backCam
-                            ? backCam.id
-                            : devices[0].id;
+                                ? backCam.id
+                                : devices[0].id;
 
                         startScanner(selectedCam);
 

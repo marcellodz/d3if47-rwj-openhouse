@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
-    <link rel="shortcut icon" href="images/telu-logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/user/telu-logo.png" type="image/x-icon">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--
@@ -57,7 +57,7 @@ https://templatemo.com/tm-596-electric-xtra
                     <polygon points="20,8 32,16 32,24 20,32 8,24 8,16" fill="url(#logoGradient)" opacity="0.3"/>
                     <circle cx="20" cy="20" r="3" fill="url(#logoGradient)"/>
                 </svg>-->
-                <img src="images/asset-telu.png" alt="" class="logo-svg">
+                <img src="images/user/asset-telu.png" alt="" class="logo-svg">
                 <span class="logo-text">OPEN HOUSE TELKOM UNIVERSITY</span>
             </a>
             <ul class="nav-links" id="navLinks">

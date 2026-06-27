@@ -216,12 +216,17 @@ Route::post(
     [AdminController::class, 'staffAction']
 );
 
-Route::get(
-    '/admin/super/generate-qr/{idbooth}',
-    [AdminController::class, 'generateQrBooth']
-);
-
 Route::post(
     '/admin/super/reward-config/update',
     [AdminController::class, 'rewardConfigUpdate']
 );
+
+Route::get(
+    '/admin/super/booth/{idbooth}/qr',
+    [AdminController::class, 'generateQrBooth']
+)->name('admin.super.booth.qr');
+
+Route::get(
+    '/admin/super/peserta/export',
+    [AdminController::class, 'exportPeserta']
+)->name('admin.super.peserta.export');

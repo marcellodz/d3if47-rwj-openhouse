@@ -830,22 +830,23 @@ class AdminController extends Controller
                 $totalPage = (int) ceil($totalData / $limit);
 
                 $extraHtml .= "
-                <form method='post'
-                    action='#'
-                    style='margin:10px 0 20px 0;'>
 
-                    <button type='button'
-                        class='btn-add'
-                        style='background:linear-gradient(90deg,#0f9d58,#0b8043);'
-                        onclick=\"alert('Export Excel nanti kita sambungkan ke Laravel')\">
+    <form method='GET'
+          action='" . route('admin.super.peserta.export') . "'
+          style='margin:10px 0 20px 0;'>
 
-                        <i class='fas fa-file-excel'></i>
-                        Export Excel
+        <button type='submit'
+                class='btn-add'
+                style='background:linear-gradient(90deg,#0f9d58,#0b8043);'>
 
-                    </button>
+            <i class='fas fa-file-excel'></i>
+            Export Excel
 
-                </form>
-            ";
+        </button>
+
+    </form>
+
+";
 
                 break;
 
@@ -1513,8 +1514,10 @@ class AdminController extends Controller
                                 </button>
 
                                 <button class='btn-action qr'
-    onclick=\"window.open('/admin/super/generate-qr/{$idBooth}', '_blank')\">
+    onclick=\"window.open('" . route('admin.super.booth.qr', $idBooth) . "', '_blank')\">
+
     <i class='fas fa-qrcode'></i>
+
 </button>
 
                             </td>
@@ -1625,59 +1628,119 @@ class AdminController extends Controller
 
         return response($html);
     }
-public function generateQrBooth($idbooth)
-{
-    $booth = DB::table('booth')
-        ->where('idbooth', $idbooth)
-        ->first();
+    public function generateQrBooth($idbooth)
+    {
+        $booth = DB::table('booth')
+            ->where('idbooth', $idbooth)
+            ->first();
 
-    if (!$booth) {
+        if (!$booth) {
+            abort(404);
+        }
 
-        abort(404);
+        /*
+        =========================
+        DATA QR
+        =========================
+        */
 
+        $qrCode = 'BOOTH-' . $booth->idbooth;
+
+        /*
+        =========================
+        SIMPAN KODE QR SAJA
+        =========================
+        */
+
+        DB::table('booth')
+            ->where('idbooth', $idbooth)
+            ->update([
+                'qr_code' => $qrCode
+            ]);
+
+        /*
+        =========================
+        TAMPILKAN HALAMAN QR
+        =========================
+        */
+
+        return view('admin.super.qr_booth', [
+            'booth' => $booth,
+            'qrCode' => $qrCode,
+        ]);
     }
 
-    /*
-    =========================
-    DATA QR
-    =========================
-    */
+    public function exportPeserta()
+{
+    $peserta = DB::table('super_user')
+        ->select(
+            'nama',
+            'email',
+            'hp',
+            'kelas',
+            'sekolah',
+            'sekolah_lainnya',
+            'provinsi',
+            'kota',
+            'createdAt'
+        )
+        ->orderByDesc('createdAt')
+        ->get();
 
-    $qrData = json_encode([
-        'idbooth' => $booth->idbooth,
-        'nama_booth' => $booth->nama_booth,
-    ]);
+    $filename = "Data_Peserta_OpenHouse_" .
+        date("Ymd_His") .
+        ".csv";
 
-    /*
-    =========================
-    URL QR EXTERNAL
-    =========================
-    */
+    $headers = [
 
-    $qrUrl =
-        'https://quickchart.io/qr?size=400&text='
-        . urlencode($qrData);
+        'Content-Type' => 'text/csv; charset=UTF-8',
 
-    /*
-    =========================
-    SIMPAN URL QR
-    =========================
-    */
+        'Content-Disposition' =>
+            "attachment; filename={$filename}",
 
-    DB::table('booth')
-        ->where('idbooth', $idbooth)
-        ->update([
-            'qr_code' => $qrUrl
-        ]);
+    ];
 
-    /*
-    =========================
-    REDIRECT KE QR
-    =========================
-    */
+    $callback = function () use ($peserta) {
 
-    return redirect($qrUrl);
+        $file = fopen('php://output', 'w');
+
+        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+
+        fputcsv($file, [
+
+            'Nama Lengkap',
+            'Email',
+            'No WhatsApp',
+            'Profesi / Kelas',
+            'Asal Sekolah',
+            'Provinsi',
+            'Kota',
+            'Tanggal Daftar'
+
+        ], ';');
+
+        foreach ($peserta as $row) {
+
+            fputcsv($file, [
+
+                $row->nama,
+                $row->email,
+                $row->hp,
+                $row->kelas,
+                $row->sekolah ?: $row->sekolah_lainnya,
+                $row->provinsi,
+                $row->kota,
+                $row->createdAt
+
+            ], ';');
+
+        }
+
+        fclose($file);
+
+    };
+
+    return response()->stream($callback,200,$headers);
 }
 }
-
 
