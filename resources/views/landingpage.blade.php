@@ -100,14 +100,25 @@ https://templatemo.com/tm-596-electric-xtra
         <div class="about-content">
             <div class="about-text">
                 <h2>Open House Telkom University</h2>
-                <p>At ELECTRIC XTRA, we're not just building technology – we're crafting the future. Our mission is to
-                    bridge the gap between human potential and digital innovation, creating solutions that empower
-                    individuals and transform industries.</p>
-                <p>Founded by visionaries who saw beyond the limitations of current technology, ELECTRIC XTRA represents
-                    a quantum leap in digital infrastructure. We combine cutting-edge research with practical
-                    applications to deliver solutions that are both revolutionary and reliable.</p>
-                <p>Join us as we redefine what's possible in the digital age. The future isn't something that happens to
-                    us – it's something we create together.</p>
+                <p>Open House Telkom University merupakan kegiatan yang diselenggarakan untuk memperkenalkan
+                    lingkungan kampus, program studi, fasilitas, serta berbagai aktivitas akademik dan nonakademik
+                    kepada
+                    calon mahasiswa. Melalui kegiatan ini, pengunjung dapat memperoleh informasi secara langsung
+                    mengenai
+                    kehidupan perkuliahan, prospek karier, serta berbagai peluang yang ditawarkan oleh Telkom
+                    University.</p>
+                <p>Mengusung konsep <b>Phygital Experience</b>, Open House menggabungkan pengalaman interaksi secara
+                    langsung
+                    dengan pemanfaatan teknologi digital. Peserta dapat mengikuti berbagai rangkaian kegiatan seperti
+                    Opening Ceremony,
+                    Tel-U Explore, Seminar, Trial Class, Campus Tour, hingga mengunjungi booth fakultas melalui satu
+                    platform yang memudahkan proses
+                    registrasi, presensi, serta pengumpulan poin selama acara berlangsung.</p>
+                <p>JMelalui Open House Telkom University, calon mahasiswa diharapkan dapat mengenal lebih dekat budaya
+                    akademik, inovasi, dan ekosistem
+                    pembelajaran di Telkom University sehingga memperoleh gambaran yang lebih jelas dalam menentukan
+                    pilihan pendidikan tinggi yang sesuai dengan
+                    minat dan cita-cita mereka.</p>
             </div>
             <div class="about-visual">
                 <div class="about-graphic"></div>
@@ -140,69 +151,110 @@ https://templatemo.com/tm-596-electric-xtra
                         <span>Campus Tour</span>
                     </div>
                 </div>
+                ```html
                 <div class="feature-content">
+
+                    <!-- Opening Ceremony -->
                     <div class="content-panel active" id="performance">
-                        <h3>Lightning Fast Performance</h3>
-                        <p>Experience unprecedented speed with our quantum-powered infrastructure. Built on cutting-edge
-                            technology that delivers results at the speed of thought. Electric Xtra CSS template is
-                            brought to you by TemplateMo website.</p>
+                        <h3>Opening Ceremony</h3>
+
+                        <p>
+                            Opening Ceremony merupakan rangkaian pembuka yang menandai dimulainya
+                            kegiatan Open House Telkom University. Pada sesi ini peserta akan
+                            mendapatkan sambutan dari pimpinan universitas, pengenalan singkat
+                            mengenai Telkom University, serta informasi mengenai seluruh rangkaian
+                            kegiatan yang dapat diikuti selama acara berlangsung.
+                        </p>
+
                         <ul class="feature-list">
-                            <li>Sub-millisecond response times</li>
-                            <li>99.99% uptime guarantee</li>
-                            <li>Automatic scaling based on demand</li>
-                            <li>Real-time data synchronization</li>
+                            <li>Sambutan dari pimpinan Telkom University</li>
+                            <li>Pengenalan profil dan keunggulan universitas</li>
+                            <li>Informasi rangkaian kegiatan Open House</li>
+                            <li>Penampilan pembuka dan hiburan</li>
                         </ul>
                     </div>
+
+                    <!-- Tel-U Explore -->
                     <div class="content-panel" id="security">
-                        <h3>Military-Grade Security</h3>
-                        <p>Your data is protected by the most advanced encryption protocols available. Multi-layered
-                            security ensures complete protection against cyber threats. You may tell your friends about
-                            TemplateMo free css website and how easy it is.</p>
+                        <h3>Tel-U Explore</h3>
+
+                        <p>
+                            Tel-U Explore memberikan kesempatan kepada peserta untuk mengunjungi
+                            berbagai booth fakultas dan unit yang ada di Telkom University.
+                            Pengunjung dapat berdiskusi secara langsung dengan dosen maupun
+                            mahasiswa serta memperoleh informasi mengenai program studi,
+                            fasilitas, prestasi, hingga peluang karier setelah lulus.
+                        </p>
+
                         <ul class="feature-list">
-                            <li>256-bit AES encryption</li>
-                            <li>Biometric authentication</li>
-                            <li>Zero-knowledge architecture</li>
-                            <li>Real-time threat detection</li>
-                            <li>Automated security updates</li>
+                            <li>Mengunjungi booth setiap fakultas</li>
+                            <li>Konsultasi langsung dengan dosen dan mahasiswa</li>
+                            <li>Informasi program studi dan beasiswa</li>
+                            <li>Mengumpulkan poin reward dari setiap kunjungan</li>
                         </ul>
                     </div>
+
+                    <!-- Seminar -->
                     <div class="content-panel" id="network">
-                        <h3>Global Neural Network</h3>
-                        <p>Connect to our worldwide infrastructure that spans across continents. Seamless integration
-                            with existing systems and future-proof architecture.</p>
+                        <h3>Seminar</h3>
+
+                        <p>
+                            Seminar menghadirkan narasumber dari akademisi maupun praktisi
+                            industri yang membahas berbagai topik menarik mengenai perkembangan
+                            teknologi, inovasi, dunia kerja, serta pengalaman belajar di
+                            Telkom University sehingga peserta memperoleh wawasan yang lebih luas.
+                        </p>
+
                         <ul class="feature-list">
-                            <li>200+ global data centers</li>
-                            <li>Intelligent routing algorithms</li>
-                            <li>Cross-platform compatibility</li>
-                            <li>5G and satellite connectivity</li>
-                            <li>Decentralized architecture</li>
+                            <li>Pembicara dari akademisi dan industri</li>
+                            <li>Topik teknologi dan inovasi terkini</li>
+                            <li>Sesi diskusi dan tanya jawab</li>
+                            <li>Menambah wawasan mengenai dunia perkuliahan</li>
                         </ul>
                     </div>
+
+                    <!-- Trial Class -->
                     <div class="content-panel" id="analytics">
-                        <h3>Advanced Analytics</h3>
-                        <p>Harness the power of AI-driven insights to make data-driven decisions. Real-time analytics
-                            and predictive modeling at your fingertips.</p>
+                        <h3>Trial Class</h3>
+
+                        <p>
+                            Trial Class memberikan pengalaman belajar secara langsung layaknya
+                            menjadi mahasiswa Telkom University. Peserta dapat mengikuti kelas
+                            singkat yang dipandu oleh dosen sesuai bidang keilmuan sehingga dapat
+                            merasakan suasana pembelajaran di lingkungan kampus.
+                        </p>
+
                         <ul class="feature-list">
-                            <li>Machine learning algorithms</li>
-                            <li>Predictive analytics</li>
-                            <li>Custom dashboard creation</li>
-                            <li>Real-time data visualization</li>
-                            <li>Automated reporting</li>
+                            <li>Mengikuti simulasi perkuliahan</li>
+                            <li>Dibimbing langsung oleh dosen</li>
+                            <li>Pengenalan metode pembelajaran</li>
+                            <li>Pengalaman belajar di kelas Telkom University</li>
                         </ul>
                     </div>
+
+                    <!-- Campus Tour -->
                     <div class="content-panel" id="integration">
-                        <h3>Seamless Integration</h3>
-                        <p>Connect with thousands of apps and services through our universal API. Built to work with
-                            your existing tools and workflows.</p>
+                        <h3>Campus Tour</h3>
+
+                        <p>
+                            Campus Tour mengajak peserta berkeliling lingkungan Telkom University
+                            untuk melihat berbagai fasilitas kampus, seperti ruang perkuliahan,
+                            laboratorium, perpustakaan, pusat kegiatan mahasiswa, hingga area
+                            pendukung lainnya sehingga peserta dapat mengenal suasana kampus
+                            secara lebih dekat.
+                        </p>
+
                         <ul class="feature-list">
-                            <li>RESTful API architecture</li>
-                            <li>WebSocket support</li>
-                            <li>SDK for major platforms</li>
-                            <li>One-click integrations</li>
-                            <li>Custom webhook support</li>
+                            <li>Mengelilingi area kampus bersama pemandu</li>
+                            <li>Mengunjungi laboratorium dan fasilitas belajar</li>
+                            <li>Melihat pusat kegiatan mahasiswa</li>
+                            <li>Mengenal lingkungan kampus secara langsung</li>
                         </ul>
                     </div>
+
                 </div>
+                ```
+
             </div>
         </section>
 
@@ -278,8 +330,8 @@ https://templatemo.com/tm-596-electric-xtra
                 <a href="#terms">Terms of Service</a>
                 <a href="#careers">Careers</a>
             </div>
-            <p class="copyright">I LOVE YOU IBU, BISSMILLAH LANCAR <a
-                    href="https://templatemo.com" target="_blank" rel="nofollow noopener"></a></p>
+            <p class="copyright">I LOVE YOU IBU, BISSMILLAH LANCAR <a href="https://templatemo.com" target="_blank"
+                    rel="nofollow noopener"></a></p>
         </div>
     </footer>
     <script src="{{ asset('js/templatemo-electric-scripts.js') }}"></script>
