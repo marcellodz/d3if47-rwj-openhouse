@@ -314,6 +314,45 @@
             border-radius: 12px;
             padding: 20px;
         }
+
+        .popup-content {
+            position: relative;
+            width: 720px;
+            max-width: 92%;
+            background: #1b1b1b;
+            border-radius: 18px;
+            padding: 30px;
+            border: 1px solid rgba(255, 60, 60, .2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+
+            width: 38px;
+            height: 38px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #2a2a2a;
+            color: #fff;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: .2s;
+        }
+
+        .popup-close:hover {
+            background: #ff3333;
+            transform: rotate(90deg);
+        }
     </style>
 </head>
 
@@ -363,7 +402,9 @@
     <div id="rewardPopup" class="popup-overlay">
         <div class="popup-content">
 
-            <button onclick="closeRewardPopup()">✖</button>
+            <button class="popup-close" onclick="closeRewardPopup()">
+                <i class="fas fa-times"></i>
+            </button>
 
             <div id="rewardPopupBody"></div>
 
