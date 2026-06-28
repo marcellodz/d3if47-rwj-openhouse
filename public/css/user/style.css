@@ -139,3 +139,44 @@
     max-width: 380px;
     margin: 0 auto;
 }
+
+.reward-claim-card{
+    text-align:center;
+    padding:25px;
+}
+
+.reward-claim-card .qr-box{
+    margin-bottom:20px;
+}
+
+.reward-claim-card .qr-box img{
+    width:260px;
+    background:#fff;
+    padding:15px;
+    border-radius:16px;
+    box-shadow:0 8px 30px rgba(0,0,0,.15);
+}
+
+.reward-claim-card h3{
+    margin:10px 0 5px;
+    font-size:28px;
+    color:#222;
+}
+
+.reward-claim-card p{
+    margin:0;
+    color:#666;
+}
+
+.reward-claim-card .status{
+    margin-top:22px;
+    padding:16px;
+    border-radius:12px;
+    font-size:16px;
+    line-height:1.6;
+}
+
+.reward-claim-card .status.ok{
+    background:#eafaf1;
+    color:#1e8e3e;
+}

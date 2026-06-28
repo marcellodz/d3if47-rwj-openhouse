@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserContentController extends Controller
 {
+    
     public function load($type)
     {
         $iduser = session('iduser');
@@ -782,48 +783,49 @@ POINT & REWARD
         }
     }
     public function generateClaimQR()
-{
-    $iduser = session('iduser');
+    {
+        $iduser = session('iduser');
 
-    if (!$iduser) {
-        return "Session user tidak ditemukan.";
-    }
+        if (!$iduser) {
+            return "Session user tidak ditemukan.";
+        }
 
-    $user = DB::table('super_user')
-        ->where('iduser', $iduser)
-        ->first();
+        $user = DB::table('super_user')
+            ->where('iduser', $iduser)
+            ->first();
 
-    if (!$user) {
-        return "User tidak ditemukan.";
-    }
+        if (!$user) {
+            return "User tidak ditemukan.";
+        }
 
-    $qrData = json_encode([
-        'type'   => 'claim',
-        'iduser' => $iduser
-    ]);
+        $qrData = json_encode([
+            'type' => 'claim',
+            'iduser' => $iduser
+        ]);
 
-    $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=350x350&ecc=H&margin=20&data="
-        . urlencode($qrData);
+        $qrUrl =
+            "https://api.qrserver.com/v1/create-qr-code/?size=350x350&ecc=H&margin=20&data="
+            . urlencode($qrData);
 
-    return "
-    <div style='text-align:center;padding:10px;'>
+        return "
+    <div class='card reward-claim-card'>
 
-        <img src='{$qrUrl}'
-             style='width:260px;
-                    background:#fff;
-                    padding:12px;
-                    border-radius:12px;
-                    margin-bottom:15px;'>
+        <div class='qr-box'>
+            <img src='{$qrUrl}' alt='QR Klaim Hadiah'>
+        </div>
 
-        <h3>{$user->nama}</h3>
+        <div class='user-info'>
+            <h3>{$user->nama}</h3>
+            <p>ID : {$user->iduser}</p>
+        </div>
 
-        <p>ID : {$user->iduser}</p>
-
-        <p style='color:#666;font-size:14px'>
-            Tunjukkan QR ini kepada petugas untuk melakukan klaim hadiah.
-        </p>
+        <div class='status ok'>
+            <i class='fas fa-gift'></i>
+            Tunjukkan QR ini kepada petugas
+            untuk melakukan klaim hadiah.
+        </div>
 
     </div>
     ";
-}
+    }
 }
