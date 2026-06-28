@@ -165,32 +165,32 @@ class ScannerController extends Controller
     }
 
     public function rewardContent($iduser)
-{
-    $user = DB::table('super_user')
-        ->where('iduser', $iduser)
-        ->first();
+    {
+        $user = DB::table('super_user')
+            ->where('iduser', $iduser)
+            ->first();
 
-    if (!$user) {
-        return "
+        if (!$user) {
+            return "
             <div class='error'>
                 Peserta tidak ditemukan.
             </div>
         ";
-    }
+        }
 
-    $claimed = DB::table('reward_claim')
-        ->where('iduser', $iduser)
-        ->exists();
+        $claimed = DB::table('reward_claim')
+            ->where('iduser', $iduser)
+            ->exists();
 
-    $button = $claimed
-        ? "<button class='btn-hadir active' disabled>Sudah Klaim</button>"
-        : "<button
+        $button = $claimed
+            ? "<button class='btn-hadir active' disabled>Sudah Klaim</button>"
+            : "<button
                 class='btn-hadir'
                 onclick='confirmReward({$iduser})'>
                 Konfirmasi Klaim
            </button>";
 
-    return "
+        return "
 
     <div class='participant-info'>
 
@@ -219,11 +219,11 @@ class ScannerController extends Controller
             <div>
                 <b>Status</b><br>" .
 
-        ($claimed
-            ? "<span class='status hadir'>Sudah Klaim</span>"
-            : "<span class='status belum-hadir'>Belum Klaim</span>")
+            ($claimed
+                ? "<span class='status hadir'>Sudah Klaim</span>"
+                : "<span class='status belum-hadir'>Belum Klaim</span>")
 
-        . "
+            . "
 
             </div>
 
@@ -236,40 +236,36 @@ class ScannerController extends Controller
     </div>
 
     ";
-}
-
-public function confirmReward(Request $request)
-{
-    $iduser = $request->iduser;
-
-    if (
-        DB::table('reward_claim')
-            ->where('iduser', $iduser)
-            ->exists()
-    ) {
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Hadiah sudah pernah diklaim.'
-        ]);
     }
 
-    DB::table('reward_claim')->insert([
+    public function confirmReward(Request $request)
+    {
+        $iduser = $request->iduser;
 
-        'iduser' => $iduser,
+        if (
+            DB::table('reward_claim')
+                ->where('iduser', $iduser)
+                ->exists()
+        ) {
 
-        'claimed_at' => now(),
+            return response()->json([
+                'success' => false,
+                'message' => 'Hadiah sudah pernah diklaim.'
+            ]);
+        }
 
-        'claimed_by' => session('admin_id')
+        DB::table('reward_claim')->insert([
+            'iduser' => $iduser,
+            'staff_id' => session('admin_id'),
+            'waktu_klaim' => now(),
+            'status' => 'approved'
+        ]);
+        return response()->json([
 
-    ]);
+            'success' => true,
 
-    return response()->json([
+            'message' => 'Hadiah berhasil diklaim.'
 
-        'success' => true,
-
-        'message' => 'Hadiah berhasil diklaim.'
-
-    ]);
-}
+        ]);
+    }
 }
