@@ -354,6 +354,16 @@
 
         }
 
+        <div id="rewardPopup" class="popup-overlay" style="display:none;">
+            <div class="popup-content">
+
+                <button onclick="closeRewardPopup()">✖</button>
+
+                <div id="rewardPopupBody"></div>
+
+            </div>
+        </div>
+
         function extractIdUser(decodedText) {
 
             const clean =
@@ -868,44 +878,54 @@
             closeScanResult;
 
         async function loadRewardContent(iduser) {
-            const response = await fetch(
-                "/admin/staff/reward/" + iduser
-            );
 
-            const html = await response.text();
+            const response =
+                await fetch("/admin/staff/reward/" + iduser);
+
+            const html =
+                await response.text();
 
             setResult(html);
+
+        }
+
+        function closeRewardPopup() {
+
+            document.getElementById("rewardPopup").style.display = "none";
+
+            closeScanResult();
+
         }
 
         async function confirmReward(iduser) {
 
-    if (!confirm("Konfirmasi klaim hadiah?")) {
-        return;
-    }
+            if (!confirm("Konfirmasi klaim hadiah?")) {
+                return;
+            }
 
-    const response = await fetch(
-        "{{ route('admin.staff.reward.confirm') }}",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": csrfToken,
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                iduser: iduser
-            })
+            const response = await fetch(
+                "{{ route('admin.staff.reward.confirm') }}",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        iduser: iduser
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            alert(data.message);
+
+            if (data.success) {
+                loadRewardContent(iduser);
+            }
         }
-    );
-
-    const data = await response.json();
-
-    alert(data.message);
-
-    if (data.success) {
-        loadRewardContent(iduser);
-    }
-}
     </script>
 
 
