@@ -304,15 +304,31 @@ https://templatemo.com/tm-596-electric-xtra
         </section>
 
         <!-- Footer -->
+        <!-- Footer -->
         <footer>
             <div class="footer-content">
+
+                <h3>Open House Telkom University</h3>
+
+                <p>
+                    Website Open House Telkom University sebagai media informasi,
+                    registrasi peserta, presensi kegiatan, serta implementasi konsep
+                    <b>Phygital Experience</b> untuk mendukung kegiatan Open House.
+                </p>
+
                 <div class="footer-links">
-                    <a href="#privacy">Privacy Policy</a>
-                    <a href="#terms">Terms of Service</a>
-                    <a href="#careers">Careers</a>
+                    <a href="#home">Home</a>
+                    <a href="#about">Tentang</a>
+                    <a href="#features">Kegiatan</a>
+                    <a href="#contact">Kontak</a>
                 </div>
-                <p class="copyright">I LOVE YOU IBU, BISSMILLAH LANCAR <a href="https://templatemo.com" target="_blank"
-                        rel="nofollow noopener"></a></p>
+
+                <hr style="margin:25px auto;opacity:.2;max-width:800px;">
+
+                <p class="copyright">
+                    © {{ date('Y') }} Open House Telkom University. All Rights Reserved.
+                </p>
+
             </div>
         </footer>
         <script src="{{ asset('js/templatemo-electric-scripts.js') }}"></script>

@@ -5,41 +5,34 @@
 
     <meta charset="UTF-8">
 
-    <meta name="csrf-token"
-    content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         {{ $pageTitle }} - Open House
     </title>
 
     <!-- FAVICON -->
-    <link rel="icon"
-        href="{{ asset('images/user/telu-logo.png') }}"
-        type="image/png">
+    <link rel="icon" href="{{ asset('images/user/telu-logo.png') }}" type="image/png">
 
     <!-- GOOGLE FONT -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap"
         rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
 
     <!-- FONT AWESOME -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet"
-        href="{{ asset('css/admin/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
 
-    <link rel="stylesheet"
-        href="{{ asset('css/admin/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
 
-    <link rel="stylesheet"
-        href="{{ asset('css/admin/ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/ui.css') }}">
 
     <!-- SWEET ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -185,9 +178,7 @@
 
         <div class="profile">
 
-            <button class="profile-btn"
-                id="profileBtn"
-                type="button">
+            <button class="profile-btn" id="profileBtn" type="button">
 
                 <i class="fas fa-user-circle"></i>
 
@@ -199,16 +190,13 @@
 
             </button>
 
-            <div class="dropdown"
-                id="profileDropdown">
+            <div class="dropdown" id="profileDropdown">
 
-                <form action="{{ route('admin.logout') }}"
-                    method="POST">
+                <form action="{{ route('admin.logout') }}" method="POST">
 
                     @csrf
 
-                    <button type="submit"
-                        class="logout-btn">
+                    <button type="submit" class="logout-btn">
 
                         <i class="fas fa-sign-out-alt"></i>
 
@@ -242,32 +230,45 @@
     </main>
 
     <!-- FOOTER -->
+    <!-- Footer -->
     <footer>
+        <div class="footer-content">
 
-        <p>
-            © {{ date('Y') }}
-            Open House Telkom University
-            |
-            Powered by Electric Xtra
-        </p>
+            <h3>Open House Telkom University</h3>
 
+            <p>
+                Website Open House Telkom University sebagai media informasi,
+                registrasi peserta, presensi kegiatan, serta implementasi konsep
+                <b>Phygital Experience</b> untuk mendukung kegiatan Open House.
+            </p>
+
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">Tentang</a>
+                <a href="#features">Kegiatan</a>
+                <a href="#contact">Kontak</a>
+            </div>
+
+            <hr style="margin:25px auto;opacity:.2;max-width:800px;">
+
+            <p class="copyright">
+                © {{ date('Y') }} Open House Telkom University. All Rights Reserved.
+            </p>
+
+        </div>
     </footer>
 
     <!-- JS -->
     <script src="{{ asset('js/admin/script.js') }}"></script>
 
-    <script src="{{ asset('js/admin/super/ui.js') }}"
-        defer></script>
+    <script src="{{ asset('js/admin/super/ui.js') }}" defer></script>
 
-    <script src="{{ asset('js/admin/super/staff.js') }}"
-        defer></script>
+    <script src="{{ asset('js/admin/super/staff.js') }}" defer></script>
 
-    <script src="{{ asset('js/admin/super/booth.js') }}"
-        defer></script>
+    <script src="{{ asset('js/admin/super/booth.js') }}" defer></script>
 
-    <script src="{{ asset('js/admin/super/main.js') }}"
-        defer></script>
-    
+    <script src="{{ asset('js/admin/super/main.js') }}" defer></script>
+
     <script src="{{ asset('js/admin/super/content-loader.js') }}" defer></script>
 
     <!-- DROPDOWN SCRIPT -->
