@@ -120,6 +120,7 @@ https://templatemo.com/tm-596-electric-xtra
                     pilihan pendidikan tinggi yang sesuai dengan
                     minat dan cita-cita mereka.</p>
             </div>
+        </div>
 
         <!-- Features Section with Tabs -->
         <section class="features" id="features">
