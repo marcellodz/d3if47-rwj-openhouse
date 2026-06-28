@@ -876,6 +876,36 @@
 
             setResult(html);
         }
+
+        async function confirmReward(iduser) {
+
+    if (!confirm("Konfirmasi klaim hadiah?")) {
+        return;
+    }
+
+    const response = await fetch(
+        "{{ route('admin.staff.reward.confirm') }}",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                iduser: iduser
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    alert(data.message);
+
+    if (data.success) {
+        loadRewardContent(iduser);
+    }
+}
     </script>
 
 

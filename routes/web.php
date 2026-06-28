@@ -243,3 +243,8 @@ Route::get(
     '/admin/staff/reward/{iduser}',
     [ScannerController::class, 'rewardContent']
 );
+
+Route::post(
+    '/admin/staff/reward/confirm',
+    [ScannerController::class, 'confirmReward']
+)->name('admin.staff.reward.confirm');
