@@ -631,38 +631,45 @@
 
         async function onScanSuccess(decodedText) {
 
-            if (isProcessing) {
+            if (isProcessing) return;
 
-                return;
+            isProcessing = true;
 
-            }
-
-            isProcessing =
-                true;
+            await stopScanner("QR terbaca. Memproses...");
 
             const qr = extractIdUser(decodedText);
 
             if (!qr) {
 
-                setResult("QR tidak dikenali.");
-                return;
+                setResult(`
+            <span class="error">
+                QR tidak dikenali.
+            </span>
+        `);
 
+                isProcessing = false;
+                return;
             }
 
-            if (qr.type === "claim") {
+            // QR Reward
+            if (typeof qr === "object" && qr.type === "claim") {
 
                 await loadRewardContent(qr.iduser);
 
-            } else {
+            }
+            // QR Presensi Lama
+            else {
 
-                await loadStaffContent(qr.iduser);
+                const iduser =
+                    typeof qr === "object"
+                        ? qr.iduser
+                        : qr;
+
+                await loadStaffContent(iduser);
 
             }
 
-            await stopScanner(
-                "QR terbaca. Memproses..."
-            );
-
+            isProcessing = false;
         }
 
         function onScanFailure(errorMessage) {
