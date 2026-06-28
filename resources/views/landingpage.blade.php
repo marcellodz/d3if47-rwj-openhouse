@@ -151,7 +151,6 @@ https://templatemo.com/tm-596-electric-xtra
                         <span>Campus Tour</span>
                     </div>
                 </div>
-                ```html
                 <div class="feature-content">
 
                     <!-- Opening Ceremony -->
@@ -161,15 +160,15 @@ https://templatemo.com/tm-596-electric-xtra
                         <p>
                             Opening Ceremony merupakan rangkaian pembuka yang menandai dimulainya
                             kegiatan Open House Telkom University. Pada sesi ini peserta akan
-                            mendapatkan sambutan dari pimpinan universitas, pengenalan singkat
-                            mengenai Telkom University, serta informasi mengenai seluruh rangkaian
-                            kegiatan yang dapat diikuti selama acara berlangsung.
+                            mendapatkan sambutan dari pimpinan universitas, pengenalan mengenai
+                            Telkom University, serta informasi terkait seluruh rangkaian kegiatan
+                            yang dapat diikuti selama acara berlangsung.
                         </p>
 
                         <ul class="feature-list">
                             <li>Sambutan dari pimpinan Telkom University</li>
-                            <li>Pengenalan profil dan keunggulan universitas</li>
-                            <li>Informasi rangkaian kegiatan Open House</li>
+                            <li>Pengenalan profil dan keunggulan kampus</li>
+                            <li>Informasi jadwal kegiatan Open House</li>
                             <li>Penampilan pembuka dan hiburan</li>
                         </ul>
                     </div>
@@ -180,17 +179,17 @@ https://templatemo.com/tm-596-electric-xtra
 
                         <p>
                             Tel-U Explore memberikan kesempatan kepada peserta untuk mengunjungi
-                            berbagai booth fakultas dan unit yang ada di Telkom University.
-                            Pengunjung dapat berdiskusi secara langsung dengan dosen maupun
-                            mahasiswa serta memperoleh informasi mengenai program studi,
-                            fasilitas, prestasi, hingga peluang karier setelah lulus.
+                            berbagai booth fakultas, program studi, serta unit pendukung di
+                            Telkom University. Peserta dapat berdiskusi secara langsung dengan
+                            dosen dan mahasiswa untuk memperoleh informasi mengenai kurikulum,
+                            fasilitas, beasiswa, hingga prospek karier setiap program studi.
                         </p>
 
                         <ul class="feature-list">
-                            <li>Mengunjungi booth setiap fakultas</li>
-                            <li>Konsultasi langsung dengan dosen dan mahasiswa</li>
-                            <li>Informasi program studi dan beasiswa</li>
-                            <li>Mengumpulkan poin reward dari setiap kunjungan</li>
+                            <li>Mengunjungi booth fakultas dan program studi</li>
+                            <li>Konsultasi langsung bersama dosen dan mahasiswa</li>
+                            <li>Informasi fasilitas, beasiswa, dan prestasi</li>
+                            <li>Mengumpulkan poin untuk program reward</li>
                         </ul>
                     </div>
 
@@ -199,16 +198,16 @@ https://templatemo.com/tm-596-electric-xtra
                         <h3>Seminar</h3>
 
                         <p>
-                            Seminar menghadirkan narasumber dari akademisi maupun praktisi
-                            industri yang membahas berbagai topik menarik mengenai perkembangan
-                            teknologi, inovasi, dunia kerja, serta pengalaman belajar di
-                            Telkom University sehingga peserta memperoleh wawasan yang lebih luas.
+                            Seminar menghadirkan pembicara dari kalangan akademisi maupun praktisi
+                            industri yang membahas perkembangan teknologi, inovasi, dunia kerja,
+                            serta berbagai peluang karier di masa depan. Kegiatan ini bertujuan
+                            memberikan wawasan baru sekaligus inspirasi kepada calon mahasiswa.
                         </p>
 
                         <ul class="feature-list">
-                            <li>Pembicara dari akademisi dan industri</li>
-                            <li>Topik teknologi dan inovasi terkini</li>
-                            <li>Sesi diskusi dan tanya jawab</li>
+                            <li>Narasumber dari akademisi dan industri</li>
+                            <li>Materi mengenai teknologi dan inovasi</li>
+                            <li>Sesi diskusi interaktif dan tanya jawab</li>
                             <li>Menambah wawasan mengenai dunia perkuliahan</li>
                         </ul>
                     </div>
@@ -218,17 +217,18 @@ https://templatemo.com/tm-596-electric-xtra
                         <h3>Trial Class</h3>
 
                         <p>
-                            Trial Class memberikan pengalaman belajar secara langsung layaknya
-                            menjadi mahasiswa Telkom University. Peserta dapat mengikuti kelas
-                            singkat yang dipandu oleh dosen sesuai bidang keilmuan sehingga dapat
-                            merasakan suasana pembelajaran di lingkungan kampus.
+                            Trial Class merupakan simulasi proses pembelajaran yang memberikan
+                            pengalaman kepada peserta untuk merasakan suasana perkuliahan di
+                            Telkom University. Kelas dipandu langsung oleh dosen sesuai bidang
+                            keilmuan sehingga peserta memperoleh gambaran nyata mengenai metode
+                            pembelajaran yang diterapkan.
                         </p>
 
                         <ul class="feature-list">
-                            <li>Mengikuti simulasi perkuliahan</li>
-                            <li>Dibimbing langsung oleh dosen</li>
+                            <li>Simulasi perkuliahan bersama dosen</li>
                             <li>Pengenalan metode pembelajaran</li>
-                            <li>Pengalaman belajar di kelas Telkom University</li>
+                            <li>Pengalaman belajar layaknya mahasiswa</li>
+                            <li>Interaksi langsung dengan pengajar</li>
                         </ul>
                     </div>
 
@@ -238,23 +238,21 @@ https://templatemo.com/tm-596-electric-xtra
 
                         <p>
                             Campus Tour mengajak peserta berkeliling lingkungan Telkom University
-                            untuk melihat berbagai fasilitas kampus, seperti ruang perkuliahan,
+                            untuk mengenal berbagai fasilitas kampus seperti ruang kuliah,
                             laboratorium, perpustakaan, pusat kegiatan mahasiswa, hingga area
-                            pendukung lainnya sehingga peserta dapat mengenal suasana kampus
-                            secara lebih dekat.
+                            penunjang lainnya. Kegiatan ini memberikan gambaran langsung mengenai
+                            kehidupan akademik di lingkungan kampus.
                         </p>
 
                         <ul class="feature-list">
                             <li>Mengelilingi area kampus bersama pemandu</li>
-                            <li>Mengunjungi laboratorium dan fasilitas belajar</li>
-                            <li>Melihat pusat kegiatan mahasiswa</li>
+                            <li>Mengunjungi laboratorium dan ruang kuliah</li>
+                            <li>Melihat fasilitas pendukung mahasiswa</li>
                             <li>Mengenal lingkungan kampus secara langsung</li>
                         </ul>
                     </div>
 
                 </div>
-                ```
-
             </div>
         </section>
 
