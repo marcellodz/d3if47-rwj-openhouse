@@ -256,28 +256,12 @@ https://templatemo.com/tm-596-electric-xtra
             </div>
         </section>
 
-        <!-- Second row with reversed layout -->
-        <div class="about-content" style="margin-top: 80px;">
-            <div class="about-visual">
-                <div class="about-graphic-alt">
-                    <div class="hexagon"></div>
-                    <div class="hexagon"></div>
-                    <div class="hexagon"></div>
-                </div>
-            </div>
-            <div class="about-text">
-                <h2>Innovation at Every Level</h2>
-                <p>Our commitment to excellence drives us to push boundaries and challenge conventions. With a team of
-                    world-class engineers, designers, and visionaries, we're creating solutions that not only meet
-                    today's needs but anticipate tomorrow's challenges.</p>
-                <p>From quantum computing to neural networks, from blockchain to AI, we're at the forefront of every
-                    technological revolution. Our integrated approach ensures that each innovation builds upon the last,
-                    creating a synergy that amplifies our impact.</p>
-                <p>Experience the power of true digital transformation. With ELECTRIC XTRA, you're not just adopting
-                    technology – you're embracing a philosophy of continuous evolution and limitless possibility.</p>
-            </div>
-        </div>
-    </section>
+        <!-- Poster Open House -->
+<div class="about-content" style="margin-top:80px; display:flex; justify-content:center;">
+    <img src="{{ asset('images/user/poster.jpeg') }}"
+         alt="Poster Open House Telkom University"
+         style="width:500px; max-width:100%; height:auto; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.2);">
+</div>
 
 
 

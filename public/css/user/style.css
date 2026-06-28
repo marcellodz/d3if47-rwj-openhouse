@@ -180,3 +180,23 @@
     background:#eafaf1;
     color:#1e8e3e;
 }
+.poster-img{
+    display: block;
+    width: 100%;
+    max-width: 700px;   /* sebelumnya 1000px */
+    height: auto;
+    margin: 0 auto;
+
+    border-radius: 18px;
+    border: 2px solid rgba(231,70,70,.15);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.15),
+        0 0 20px rgba(231,70,70,.10);
+
+    transition: .3s;
+}
+
+.poster-img:hover{
+    transform: scale(1.02);
+}
