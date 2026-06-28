@@ -31,6 +31,22 @@
 
 </head>
 
+<style>
+    .reward-status{
+    margin: 25px 0 18px;
+    padding: 18px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.cta-button{
+    display: block;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+}
+</style>
+
 <!-- CLAIM POPUP -->
 <div id="claimPopup"
     style="
