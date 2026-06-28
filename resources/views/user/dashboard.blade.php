@@ -31,6 +31,92 @@
 
 </head>
 
+<!-- CLAIM POPUP -->
+<div id="claimPopup"
+    style="
+        display:none;
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.75);
+        z-index:9999;
+        justify-content:center;
+        align-items:center;">
+
+    <div style="
+        width:420px;
+        max-width:90%;
+        background:#fff;
+        border-radius:15px;
+        padding:25px;
+        position:relative;
+        text-align:center;">
+
+        <button
+            onclick="closeClaimQR()"
+            style="
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:none;
+                background:none;
+                font-size:22px;
+                cursor:pointer;">
+
+            ×
+
+        </button>
+
+        <div id="claimPopupBody">
+
+            Memuat...
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+async function showClaimQR()
+{
+    const popup =
+        document.getElementById("claimPopup");
+
+    const body =
+        document.getElementById("claimPopupBody");
+
+    popup.style.display = "flex";
+
+    body.innerHTML =
+        "<i class='fas fa-spinner fa-spin'></i> Memuat QR...";
+
+    try{
+
+        const res =
+            await fetch("/user/reward/claim");
+
+        const html =
+            await res.text();
+
+        body.innerHTML =
+            html;
+
+    }catch(e){
+
+        body.innerHTML =
+            "<p style='color:red'>Gagal memuat QR.</p>";
+
+    }
+}
+
+function closeClaimQR()
+{
+    document.getElementById("claimPopup").style.display="none";
+}
+
+</script>
+
 <body>
 
     <!-- BACKGROUND -->

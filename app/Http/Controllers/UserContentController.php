@@ -593,32 +593,32 @@ POINT & REWARD
 
                     $html .= "
 
-            <div class='reward-status success'>
+    <div class='reward-status success'>
 
-                <i class='fas fa-check-circle'></i>
+        <i class='fas fa-check-circle'></i>
 
-                Selamat! Kamu bisa klaim hadiah.
+        Selamat! Kamu bisa klaim hadiah.
 
-            </div>
+    </div>
 
-            <button class='cta-button claimBtn'
-        onclick=\"window.location='/user/reward/claim'\">
+    <button class='cta-button claimBtn'
+        onclick='showClaimQR()'>
 
-    <i class='fas fa-qrcode'></i>
+        <i class='fas fa-qrcode'></i>
 
-    QR Klaim Hadiah
+        QR Klaim Hadiah
 
-</button>
+    </button>
 
-            <p style='color:#aaa;
-                      font-size:13px;
-                      margin-top:6px;'>
+    <p style='color:#aaa;
+              font-size:13px;
+              margin-top:6px;'>
 
-                Tunjukkan QR ini ke petugas
-                untuk menukar hadiahmu.
+        Tunjukkan QR ini ke petugas
+        untuk menukar hadiahmu.
 
-            </p>
-        ";
+    </p>
+";
 
                 } else {
 
@@ -782,46 +782,48 @@ POINT & REWARD
         }
     }
     public function generateClaimQR()
-    {
-        $iduser = session('iduser');
+{
+    $iduser = session('iduser');
 
-        if (!$iduser) {
-            abort(401);
-        }
+    if (!$iduser) {
+        return "Session user tidak ditemukan.";
+    }
 
-        $user = DB::table('super_user')
-            ->where('iduser', $iduser)
-            ->first();
+    $user = DB::table('super_user')
+        ->where('iduser', $iduser)
+        ->first();
 
-        if (!$user) {
-            return "User tidak ditemukan";
-        }
+    if (!$user) {
+        return "User tidak ditemukan.";
+    }
 
-        $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&ecc=H&margin=20&data="
-            . urlencode($iduser);
+    $qrData = json_encode([
+        'type'   => 'claim',
+        'iduser' => $iduser
+    ]);
 
-        return "
-    <center style='padding:40px'>
+    $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=350x350&ecc=H&margin=20&data="
+        . urlencode($qrData);
 
-        <h2 style='color:#ff3333'>
-            QR Klaim Hadiah
-        </h2>
+    return "
+    <div style='text-align:center;padding:10px;'>
 
         <img src='{$qrUrl}'
-             style='width:300px;
+             style='width:260px;
                     background:#fff;
-                    padding:15px;
-                    border-radius:15px;'>
+                    padding:12px;
+                    border-radius:12px;
+                    margin-bottom:15px;'>
 
         <h3>{$user->nama}</h3>
 
-        <p>{$user->email}</p>
+        <p>ID : {$user->iduser}</p>
 
-        <p style='color:#666'>
-            Tunjukkan QR ini kepada petugas.
+        <p style='color:#666;font-size:14px'>
+            Tunjukkan QR ini kepada petugas untuk melakukan klaim hadiah.
         </p>
 
-    </center>
+    </div>
     ";
-    }
+}
 }
