@@ -321,6 +321,17 @@
 
     </div>
 
+
+    <div id="rewardPopup" class="popup-overlay">
+        <div class="popup-content">
+
+            <button onclick="closeRewardPopup()">✖</button>
+
+            <div id="rewardPopupBody"></div>
+
+        </div>
+    </div>
+
     <script>
         const startBtn =
             document.getElementById("startScanBtn");
@@ -353,16 +364,6 @@
             resultBox.innerHTML = html;
 
         }
-
-        <div id="rewardPopup" class="popup-overlay" style="display:none;">
-            <div class="popup-content">
-
-                <button onclick="closeRewardPopup()">✖</button>
-
-                <div id="rewardPopupBody"></div>
-
-            </div>
-        </div>
 
         function extractIdUser(decodedText) {
 
@@ -892,16 +893,18 @@
             const html =
                 await response.text();
 
-            setResult(html);
+            document.getElementById("rewardPopupBody").innerHTML = html;
 
+            document.getElementById("rewardPopup")
+                .classList.add("active");
         }
 
         function closeRewardPopup() {
 
-            document.getElementById("rewardPopup").style.display = "none";
+            document.getElementById("rewardPopup")
+                .classList.remove("active");
 
             closeScanResult();
-
         }
 
         async function confirmReward(iduser) {
