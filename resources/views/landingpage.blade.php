@@ -97,8 +97,11 @@ https://templatemo.com/tm-596-electric-xtra
 
     <!-- About Section -->
     <section class="about" id="about">
-        <div class="about-content">
-            <div class="about-text">
+        <div class="about-content" style="display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;">
+            <div class="about-text" style="max-width:900px;">
                 <h2>Open House Telkom University</h2>
                 <p>Open House Telkom University merupakan kegiatan yang diselenggarakan untuk memperkenalkan
                     lingkungan kampus, program studi, fasilitas, serta berbagai aktivitas akademik dan nonakademik
@@ -254,66 +257,65 @@ https://templatemo.com/tm-596-electric-xtra
         </section>
 
         <!-- Poster Open House -->
-<div class="about-content" style="margin-top:80px; display:flex; justify-content:center;">
-    <img src="{{ asset('images/user/poster.jpeg') }}"
-         alt="Poster Open House Telkom University"
-         style="width:500px; max-width:100%; height:auto; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.2);">
-</div>
-
-
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-info">
-            <h3>Connect With Us</h3>
-            <div class="info-item">
-                <div class="info-icon">📧</div>
-                <div class="info-details">
-                    <h4>Email</h4>
-                    <p>info@smbbtelkom.ac.id</p>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">📱</div>
-                <div class="info-details">
-                    <h4>Phone</h4>
-                    <p>(022) 7565930</p>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">📍</div>
-                <div class="info-details">
-                    <h4>Location</h4>
-                    <p>Jl. Telekomunikasi No. 1,. Terusan Buah Batu. Bandung 40257,. Jawa Barat, Indonesia</p>
-                </div>
-            </div>
-
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.3389366293327!2d107.62558207572332!3d-6.9692819930313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9bc3974981d%3A0x613eec0feec9fcf7!2sTelkom%20University%20Landmark%20Tower%20(TULT)!5e0!3m2!1sen!2sid!4v1759571561672!5m2!1sen!2sid"
-                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-                <div class="map-overlay"></div>
-            </div>
+        <div class="about-content" style="margin-top:80px; display:flex; justify-content:center;">
+            <img src="{{ asset('images/user/poster.jpeg') }}" alt="Poster Open House Telkom University"
+                style="width:500px; max-width:100%; height:auto; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.2);">
         </div>
 
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#terms">Terms of Service</a>
-                <a href="#careers">Careers</a>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="contact-info">
+                <h3>Connect With Us</h3>
+                <div class="info-item">
+                    <div class="info-icon">📧</div>
+                    <div class="info-details">
+                        <h4>Email</h4>
+                        <p>info@smbbtelkom.ac.id</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📱</div>
+                    <div class="info-details">
+                        <h4>Phone</h4>
+                        <p>(022) 7565930</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-details">
+                        <h4>Location</h4>
+                        <p>Jl. Telekomunikasi No. 1,. Terusan Buah Batu. Bandung 40257,. Jawa Barat, Indonesia</p>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.3389366293327!2d107.62558207572332!3d-6.9692819930313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9bc3974981d%3A0x613eec0feec9fcf7!2sTelkom%20University%20Landmark%20Tower%20(TULT)!5e0!3m2!1sen!2sid!4v1759571561672!5m2!1sen!2sid"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="map-overlay"></div>
+                </div>
             </div>
-            <p class="copyright">I LOVE YOU IBU, BISSMILLAH LANCAR <a href="https://templatemo.com" target="_blank"
-                    rel="nofollow noopener"></a></p>
-        </div>
-    </footer>
-    <script src="{{ asset('js/templatemo-electric-scripts.js') }}"></script>
+
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#careers">Careers</a>
+                </div>
+                <p class="copyright">I LOVE YOU IBU, BISSMILLAH LANCAR <a href="https://templatemo.com" target="_blank"
+                        rel="nofollow noopener"></a></p>
+            </div>
+        </footer>
+        <script src="{{ asset('js/templatemo-electric-scripts.js') }}"></script>
 </body>
 
 </html>
