@@ -51,8 +51,6 @@
     <nav id="navbar">
         <div class="nav-container">
             <a href="../index.php" class="logo-img">
-                <img src="{{ asset('images/user/asset-telu.png') }}">
-                <style></style>
                 <span class="logo-text">OPEN HOUSE TELKOM UNIVERSITY</span>
             </a>
         </div>
