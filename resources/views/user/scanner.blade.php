@@ -123,18 +123,10 @@
     </section>
 
     <!-- FOOTER -->
-    <footer>
+     <footer>
 
-        <div class="footer-content">
-
-            <p class="copyright">
-
-                © 2025 ELECTRIC XTRA.
-                All rights reserved.
-
-            </p>
-
-        </div>
+        © {{ date('Y') }}
+        Open House Telkom University
 
     </footer>
 

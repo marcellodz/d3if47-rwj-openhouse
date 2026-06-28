@@ -122,15 +122,6 @@
 <footer>
     <div class="footer-content">
 
-        <h3>Open House Telkom University</h3>
-
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#about">Tentang</a>
-            <a href="#features">Kegiatan</a>
-            <a href="#contact">Kontak</a>
-        </div>
-
         <hr style="margin:25px auto;opacity:.2;max-width:800px;">
 
         <p class="copyright">
