@@ -233,3 +233,8 @@ Route::get(
 
 Route::post('/reward/update', [AdminController::class, 'rewardConfigUpdate'])
     ->name('reward.update');
+
+Route::get('/user/reward/claim', [UserContentController::class, 'generateClaimQR'])
+    ->name('user.reward.claim');
+
+Route::get('/user/reward/claim', [UserContentController::class, 'generateClaimQR']);

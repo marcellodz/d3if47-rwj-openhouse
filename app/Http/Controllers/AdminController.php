@@ -1260,7 +1260,7 @@ class AdminController extends Controller
                 $title = "<i class='fas fa-gift'></i> Pengaturan Target Reward";
                 $editable = ($userRole === 'superadmin');
 
-                $config = RewardConfig::first();
+                $config = DB::table('reward_config')->first();
 
                 $facultyTarget = $config->faculty_target ?? 7;
                 $otherTarget = $config->other_target ?? 2;
@@ -1810,26 +1810,26 @@ class AdminController extends Controller
         return response()->stream($callback, 200, $headers);
     }
     public function rewardConfigUpdate(Request $request)
-{
-    $request->validate([
-        'facultyTarget' => 'required|integer|min:0',
-        'otherTarget'   => 'required|integer|min:0',
-    ]);
+    {
+        $request->validate([
+            'facultyTarget' => 'required|integer|min:0',
+            'otherTarget' => 'required|integer|min:0',
+        ]);
 
-    DB::table('reward_config')->updateOrInsert(
-        ['id' => 1],
-        [
-            'facultyTarget' => $request->facultyTarget,
-            'otherTarget'   => $request->otherTarget,
-            'updated_at'    => now(),
-            'created_at'    => now(),
-        ]
-    );
+        DB::table('reward_config')->updateOrInsert(
+            ['id' => 1],
+            [
+                'faculty_target' => $request->facultyTarget,
+                'other_target' => $request->otherTarget,
+                'updated_at' => now(),
+                'created_at' => now(),
+            ]
+        );
 
-    return redirect()->back()->with(
-        'success',
-        'Konfigurasi reward berhasil diperbarui.'
-    );
-}
+        return redirect()->back()->with(
+            'success',
+            'Konfigurasi reward berhasil diperbarui.'
+        );
+    }
 }
 

@@ -366,8 +366,10 @@ POINT & REWARD
                 =========================
                 */
 
-                $facultyTarget = 7;
-                $otherTarget = 2;
+                $config = DB::table('reward_config')->first();
+
+                $facultyTarget = $config->faculty_target ?? 7;
+                $otherTarget = $config->other_target ?? 2;
 
                 /*
                 =========================
@@ -427,9 +429,9 @@ POINT & REWARD
                 */
 
                 $isEligible =
-                    ($facultyVisit >= $facultyTarget)
+                    ($facultyTarget == 0 || $facultyVisit >= $facultyTarget)
                     &&
-                    ($otherVisit >= $otherTarget);
+                    ($otherTarget == 0 || $otherVisit >= $otherTarget);
 
                 /*
                 =========================
@@ -456,11 +458,13 @@ POINT & REWARD
                 =========================
                 */
 
-                $facultyPercent =
-                    min(($facultyVisit / $facultyTarget) * 100, 100);
+                $facultyPercent = $facultyTarget > 0
+                    ? min(($facultyVisit / $facultyTarget) * 100, 100)
+                    : 100;
 
-                $otherPercent =
-                    min(($otherVisit / $otherTarget) * 100, 100);
+                $otherPercent = $otherTarget > 0
+                    ? min(($otherVisit / $otherTarget) * 100, 100)
+                    : 100;
 
                 /*
                 =========================
@@ -594,13 +598,14 @@ POINT & REWARD
 
             </div>
 
-            <button class='cta-button claimBtn'>
+            <button class='cta-button claimBtn'
+        onclick=\"window.location='/user/reward/claim'\">
 
-                <i class='fas fa-qrcode'></i>
+    <i class='fas fa-qrcode'></i>
 
-                QR Klaim Hadiah
+    QR Klaim Hadiah
 
-            </button>
+</button>
 
             <p style='color:#aaa;
                       font-size:13px;
@@ -773,4 +778,47 @@ POINT & REWARD
                 ";
         }
     }
+   public function generateClaimQR()
+{
+    $iduser = session('iduser');
+
+    if (!$iduser) {
+        abort(401);
+    }
+
+    $user = DB::table('super_user')
+        ->where('iduser', $iduser)
+        ->first();
+
+    if (!$user) {
+        return "User tidak ditemukan";
+    }
+
+    $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&ecc=H&margin=20&data="
+        . urlencode($iduser);
+
+    return "
+    <center style='padding:40px'>
+
+        <h2 style='color:#ff3333'>
+            QR Klaim Hadiah
+        </h2>
+
+        <img src='{$qrUrl}'
+             style='width:300px;
+                    background:#fff;
+                    padding:15px;
+                    border-radius:15px;'>
+
+        <h3>{$user->nama}</h3>
+
+        <p>{$user->email}</p>
+
+        <p style='color:#666'>
+            Tunjukkan QR ini kepada petugas.
+        </p>
+
+    </center>
+    ";
+}
 }
