@@ -238,3 +238,8 @@ Route::get('/user/reward/claim', [UserContentController::class, 'generateClaimQR
     ->name('user.reward.claim');
 
 Route::get('/user/reward/claim', [UserContentController::class, 'generateClaimQR']);
+
+Route::get(
+    '/admin/staff/reward/{iduser}',
+    [ScannerController::class, 'rewardContent']
+);

@@ -4,25 +4,19 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="csrf-token"
-        content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
         Staff Scanner - Open House
     </title>
 
-    <link rel="icon"
-        href="{{ asset('images/user/telu-logo.png') }}"
-        type="image/png">
+    <link rel="icon" href="{{ asset('images/user/telu-logo.png') }}" type="image/png">
 
-    <meta http-equiv="Permissions-Policy"
-        content="autoplay=*">
+    <meta http-equiv="Permissions-Policy" content="autoplay=*">
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <script src="https://unpkg.com/html5-qrcode/html5-qrcode.min.js"></script>
 
@@ -289,8 +283,7 @@
 
     <div class="topbar">
 
-        <button class="back-btn"
-            onclick="window.location.href='{{ route('admin.dashboard') }}'">
+        <button class="back-btn" onclick="window.location.href='{{ route('admin.dashboard') }}'">
             ← Kembali
         </button>
 
@@ -312,13 +305,11 @@
 
         <div class="btn-row">
 
-            <button id="startScanBtn"
-                class="main-btn">
+            <button id="startScanBtn" class="main-btn">
                 Mulai Scan
             </button>
 
-            <button id="switchCamBtn"
-                class="switch-btn">
+            <button id="switchCamBtn" class="switch-btn">
                 Ganti Kamera
             </button>
 
@@ -376,22 +367,15 @@
 
             try {
 
-                const obj =
-                    JSON.parse(clean);
+                const obj = JSON.parse(clean);
 
-                if (obj.id) {
+                if (obj.type && obj.iduser) {
 
-                    return obj.id;
-
-                }
-
-                if (obj.iduser) {
-
-                    return obj.iduser;
+                    return obj;
 
                 }
 
-            } catch (e) {}
+            } catch (e) { }
 
             /*
             =========================
@@ -436,7 +420,7 @@
 
                 fps: 60,
 
-                qrbox: function(viewfinderWidth, viewfinderHeight) {
+                qrbox: function (viewfinderWidth, viewfinderHeight) {
 
                     const minEdge =
                         Math.min(
@@ -646,8 +630,24 @@
             isProcessing =
                 true;
 
-            const iduser =
-                extractIdUser(decodedText);
+            const qr = extractIdUser(decodedText);
+
+            if (!qr) {
+
+                setResult("QR tidak dikenali.");
+                return;
+
+            }
+
+            if (qr.type === "claim") {
+
+                await loadRewardContent(qr.iduser);
+
+            } else {
+
+                await loadStaffContent(qr.iduser);
+
+            }
 
             await stopScanner(
                 "QR terbaca. Memproses..."
@@ -884,7 +884,18 @@
 
         window.closeScanResult =
             closeScanResult;
+
+        async function loadRewardContent(iduser) {
+            const response = await fetch(
+                "/admin/staff/reward/" + iduser
+            );
+
+            const html = await response.text();
+
+            setResult(html);
+        }
     </script>
+
 
 </body>
 

@@ -32,7 +32,10 @@ class UserContentController extends Controller
                     return "<p>QR Code tidak ditemukan.</p>";
                 }
 
-                $qrData = (string) $user->iduser;
+                $qrData = json_encode([
+                    'type' => 'claim',
+                    'iduser' => $iduser
+                ]);
 
                 $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&ecc=H&margin=20&data="
                     . urlencode($qrData);
@@ -778,26 +781,26 @@ POINT & REWARD
                 ";
         }
     }
-   public function generateClaimQR()
-{
-    $iduser = session('iduser');
+    public function generateClaimQR()
+    {
+        $iduser = session('iduser');
 
-    if (!$iduser) {
-        abort(401);
-    }
+        if (!$iduser) {
+            abort(401);
+        }
 
-    $user = DB::table('super_user')
-        ->where('iduser', $iduser)
-        ->first();
+        $user = DB::table('super_user')
+            ->where('iduser', $iduser)
+            ->first();
 
-    if (!$user) {
-        return "User tidak ditemukan";
-    }
+        if (!$user) {
+            return "User tidak ditemukan";
+        }
 
-    $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&ecc=H&margin=20&data="
-        . urlencode($iduser);
+        $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=400x400&ecc=H&margin=20&data="
+            . urlencode($iduser);
 
-    return "
+        return "
     <center style='padding:40px'>
 
         <h2 style='color:#ff3333'>
@@ -820,5 +823,5 @@ POINT & REWARD
 
     </center>
     ";
-}
+    }
 }
