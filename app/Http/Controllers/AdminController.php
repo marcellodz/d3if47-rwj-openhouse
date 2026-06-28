@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\RewardConfig;
 
 class AdminController extends Controller
 {
@@ -1259,10 +1260,10 @@ class AdminController extends Controller
                 $title = "<i class='fas fa-gift'></i> Pengaturan Target Reward";
                 $editable = ($userRole === 'superadmin');
 
-                $config = config('reward');
+                $config = RewardConfig::first();
 
-                $facultyTarget = $config['facultyTarget'] ?? 7;
-                $otherTarget = $config['otherTarget'] ?? 2;
+                $facultyTarget = $config->faculty_target ?? 7;
+                $otherTarget = $config->other_target ?? 2;
 
                 $modeText = ((int) $otherTarget > 0)
                     ? "<span style='color:#00ff99;'>Mode Normal Fakultas + Lainnya</span>"
@@ -1274,45 +1275,44 @@ class AdminController extends Controller
                 <div style='margin:25px auto;max-width:420px;background:rgba(255,255,255,0.05);padding:20px;border-radius:10px;'>
 
                     <form method='POST'
-                        action='#'
-                        onsubmit=\"event.preventDefault(); alert('Update reward config nanti kita sambungkan ke Laravel');\">
+    action='" . route('reward.update') . "'>
 
-                        <input type='hidden'
-                            name='_token'
-                            value='" . csrf_token() . "'>
+    <input type='hidden'
+        name='_token'
+        value='" . csrf_token() . "'>
 
-                        <label style='display:block;margin-bottom:6px;color:#ccc;'>
-                            🎓 Target Booth Fakultas
-                        </label>
+    <label style='display:block;margin-bottom:6px;color:#ccc;'>
+        🎓 Target Booth Fakultas
+    </label>
 
-                        <input type='number'
-                            name='facultyTarget'
-                            value='{$facultyTarget}'
-                            min='0'
-                            required
-                            style='width:100%;padding:10px;border-radius:8px;border:none;background:#222;color:#fff;margin-bottom:12px;'>
+    <input type='number'
+        name='facultyTarget'
+        value='{$facultyTarget}'
+        min='0'
+        required
+        style='width:100%;padding:10px;border-radius:8px;border:none;background:#222;color:#fff;margin-bottom:12px;'>
 
-                        <label style='display:block;margin-bottom:6px;color:#ccc;'>
-                            🏪 Target Booth Lainnya
-                        </label>
+    <label style='display:block;margin-bottom:6px;color:#ccc;'>
+        🏪 Target Booth Lainnya
+    </label>
 
-                        <input type='number'
-                            name='otherTarget'
-                            value='{$otherTarget}'
-                            min='0'
-                            required
-                            style='width:100%;padding:10px;border-radius:8px;border:none;background:#222;color:#fff;margin-bottom:20px;'>
+    <input type='number'
+        name='otherTarget'
+        value='{$otherTarget}'
+        min='0'
+        required
+        style='width:100%;padding:10px;border-radius:8px;border:none;background:#222;color:#fff;margin-bottom:20px;'>
 
-                        <button type='submit'
-                            class='btn-add'
-                            style='float:none;width:100%;'>
+    <button type='submit'
+        class='btn-add'
+        style='float:none;width:100%;'>
 
-                            <i class='fas fa-save'></i>
-                            Simpan Perubahan
+        <i class='fas fa-save'></i>
+        Simpan Perubahan
 
-                        </button>
+    </button>
 
-                    </form>
+</form>
 
                 </div>
 
@@ -1345,6 +1345,7 @@ class AdminController extends Controller
             {$title}
         </h2>
     ";
+
 
         /*
         |--------------------------------------------------------------------------
@@ -1737,76 +1738,98 @@ class AdminController extends Controller
     }
 
     public function exportPeserta()
-{
-    $peserta = DB::table('super_user')
-        ->select(
-            'nama',
-            'email',
-            'hp',
-            'kelas',
-            'sekolah',
-            'sekolah_lainnya',
-            'provinsi',
-            'kota',
-            'createdAt'
-        )
-        ->orderByDesc('createdAt')
-        ->get();
+    {
+        $peserta = DB::table('super_user')
+            ->select(
+                'nama',
+                'email',
+                'hp',
+                'kelas',
+                'sekolah',
+                'sekolah_lainnya',
+                'provinsi',
+                'kota',
+                'createdAt'
+            )
+            ->orderByDesc('createdAt')
+            ->get();
 
-    $filename = "Data_Peserta_OpenHouse_" .
-        date("Ymd_His") .
-        ".csv";
+        $filename = "Data_Peserta_OpenHouse_" .
+            date("Ymd_His") .
+            ".csv";
 
-    $headers = [
+        $headers = [
 
-        'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Type' => 'text/csv; charset=UTF-8',
 
-        'Content-Disposition' =>
-            "attachment; filename={$filename}",
+            'Content-Disposition' =>
+                "attachment; filename={$filename}",
 
-    ];
+        ];
 
-    $callback = function () use ($peserta) {
+        $callback = function () use ($peserta) {
 
-        $file = fopen('php://output', 'w');
+            $file = fopen('php://output', 'w');
 
-        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
-
-        fputcsv($file, [
-
-            'Nama Lengkap',
-            'Email',
-            'No WhatsApp',
-            'Profesi / Kelas',
-            'Asal Sekolah',
-            'Provinsi',
-            'Kota',
-            'Tanggal Daftar'
-
-        ], ';');
-
-        foreach ($peserta as $row) {
+            fprintf($file, chr(0xEF) . chr(0xBB) . chr(0xBF));
 
             fputcsv($file, [
 
-                $row->nama,
-                $row->email,
-                $row->hp,
-                $row->kelas,
-                $row->sekolah ?: $row->sekolah_lainnya,
-                $row->provinsi,
-                $row->kota,
-                $row->createdAt
+                'Nama Lengkap',
+                'Email',
+                'No WhatsApp',
+                'Profesi / Kelas',
+                'Asal Sekolah',
+                'Provinsi',
+                'Kota',
+                'Tanggal Daftar'
 
             ], ';');
 
-        }
+            foreach ($peserta as $row) {
 
-        fclose($file);
+                fputcsv($file, [
 
-    };
+                    $row->nama,
+                    $row->email,
+                    $row->hp,
+                    $row->kelas,
+                    $row->sekolah ?: $row->sekolah_lainnya,
+                    $row->provinsi,
+                    $row->kota,
+                    $row->createdAt
 
-    return response()->stream($callback,200,$headers);
+                ], ';');
+
+            }
+
+            fclose($file);
+
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+    public function rewardConfigUpdate(Request $request)
+{
+    $request->validate([
+        'facultyTarget' => 'required|integer|min:0',
+        'otherTarget'   => 'required|integer|min:0',
+    ]);
+
+    DB::table('reward_config')->updateOrInsert(
+        ['id' => 1],
+        [
+            'facultyTarget' => $request->facultyTarget,
+            'otherTarget'   => $request->otherTarget,
+            'updated_at'    => now(),
+            'created_at'    => now(),
+        ]
+    );
+
+    return redirect()->back()->with(
+        'success',
+        'Konfigurasi reward berhasil diperbarui.'
+    );
 }
 }
 

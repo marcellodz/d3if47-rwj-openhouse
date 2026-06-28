@@ -230,3 +230,6 @@ Route::get(
     '/admin/super/peserta/export',
     [AdminController::class, 'exportPeserta']
 )->name('admin.super.peserta.export');
+
+Route::post('/reward/update', [AdminController::class, 'rewardConfigUpdate'])
+    ->name('reward.update');
