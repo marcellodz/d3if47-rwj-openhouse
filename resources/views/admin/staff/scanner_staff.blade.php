@@ -276,6 +276,44 @@
                 padding: 8px;
             }
         }
+
+        @media (max-width:700px) {
+
+            .title {
+                font-size: 19px;
+            }
+
+            ...
+        }
+
+        /* <- HARUS ADA */
+
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .6);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            transition: .3s;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-content {
+            width: 700px;
+            max-width: 90%;
+            background: #181818;
+            border-radius: 12px;
+            padding: 20px;
+        }
     </style>
 </head>
 
