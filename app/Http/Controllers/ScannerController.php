@@ -163,4 +163,17 @@ class ScannerController extends Controller
             'total_booth' => $totalBooth
         ]);
     }
+
+    public function rewardContent($iduser)
+{
+    return "
+        <div style='padding:25px;text-align:center'>
+            <h2 style='color:#00ff8f'>
+                Reward QR Berhasil Dibaca
+            </h2>
+
+            <p>ID User : <b>{$iduser}</b></p>
+        </div>
+    ";
+}
 }

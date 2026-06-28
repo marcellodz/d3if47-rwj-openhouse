@@ -653,24 +653,6 @@
                 "QR terbaca. Memproses..."
             );
 
-            if (!iduser) {
-
-                setResult(`
-                    <span class="error">
-                        Format QR tidak dikenali.
-                    </span>
-
-                    <div class="raw-box">
-                        ${decodedText}
-                    </div>
-                `);
-
-                return;
-
-            }
-
-            await loadStaffContent(iduser);
-
         }
 
         function onScanFailure(errorMessage) {
