@@ -310,12 +310,6 @@ https://templatemo.com/tm-596-electric-xtra
 
                 <h3>Open House Telkom University</h3>
 
-                <p>
-                    Website Open House Telkom University sebagai media informasi,
-                    registrasi peserta, presensi kegiatan, serta implementasi konsep
-                    <b>Phygital Experience</b> untuk mendukung kegiatan Open House.
-                </p>
-
                 <div class="footer-links">
                     <a href="#home">Home</a>
                     <a href="#about">Tentang</a>
