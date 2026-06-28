@@ -1551,28 +1551,9 @@ class AdminController extends Controller
         |--------------------------------------------------------------------------
         */
 
+        $html .= $this->buildPaginationHtml($page, $totalPage, $type);
+
         if (isset($totalPage) && $totalPage > 1) {
-
-            $html .= "
-            <div class='pagination'>
-        ";
-
-            for ($i = 1; $i <= $totalPage; $i++) {
-
-                $active = ($i == $page)
-                    ? 'active'
-                    : '';
-
-                $html .= "
-                <button class='page-btn {$active}'
-                    data-page='{$i}'
-                    data-type='{$type}'>
-
-                    {$i}
-
-                </button>
-            ";
-            }
 
             $html .= "
             </div>
@@ -1628,6 +1609,91 @@ class AdminController extends Controller
 
         return response($html);
     }
+
+    private function buildPaginationHtml(int $page, int $totalPage, string $type): string
+    {
+        if ($totalPage <= 1) {
+            return '';
+        }
+
+        $html = "<div class='pagination'>";
+
+        // Tombol ke awal & sebelumnya (cuma muncul kalau bukan di halaman pertama)
+        if ($page > 1) {
+            $html .= "<button class='page-btn' data-page='1' data-type='{$type}'>&laquo;</button>";
+            $html .= "<button class='page-btn' data-page='" . ($page - 1) . "' data-type='{$type}'>&lsaquo;</button>";
+        }
+
+        [$start, $end] = $this->getPaginationRange($page, $totalPage);
+
+        // Halaman 1 + "..." kalau range tidak mulai dari awal
+        if ($start > 1) {
+            $html .= "<button class='page-btn' data-page='1' data-type='{$type}'>1</button>";
+
+            if ($start > 2) {
+                $html .= "<span class='page-dots'>..</span>";
+            }
+        }
+
+        // Nomor halaman di sekitar halaman aktif
+        for ($i = $start; $i <= $end; $i++) {
+            $active = ($i == $page) ? 'active' : '';
+
+            $html .= "<button class='page-btn {$active}' data-page='{$i}' data-type='{$type}'>{$i}</button>";
+        }
+
+        // "..." + halaman terakhir kalau range belum sampai akhir
+        if ($end < $totalPage) {
+            if ($end < $totalPage - 1) {
+                $html .= "<span class='page-dots'>..</span>";
+            }
+
+            $html .= "<button class='page-btn' data-page='{$totalPage}' data-type='{$type}'>{$totalPage}</button>";
+        }
+
+        // Tombol selanjutnya & ke akhir (cuma muncul kalau bukan di halaman terakhir)
+        if ($page < $totalPage) {
+            $html .= "<button class='page-btn' data-page='" . ($page + 1) . "' data-type='{$type}'>&rsaquo;</button>";
+            $html .= "<button class='page-btn' data-page='{$totalPage}' data-type='{$type}'>&raquo;</button>";
+        }
+
+        $html .= "</div>";
+        $html .= $this->paginationStyles();
+
+        return $html;
+    }
+
+    private function getPaginationRange(int $page, int $totalPage): array
+    {
+        $start = max(1, $page - 2);
+        $end = min($totalPage, $page + 2);
+
+        if ($start <= 2) {
+            $start = 1;
+            $end = min(5, $totalPage);
+        }
+
+        if ($end >= $totalPage - 1) {
+            $end = $totalPage;
+            $start = max(1, $totalPage - 4);
+        }
+
+        return [$start, $end];
+    }
+
+    private function paginationStyles(): string
+    {
+        return "
+            <style>
+                .pagination{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+                .page-btn{padding:6px 12px;background:#222;border:1px solid #555;color:#fff;border-radius:6px;cursor:pointer;}
+                .page-btn.active{background:#ff4545;border-color:#ff6b6b;}
+                .page-btn:hover{background:#444;}
+                .page-dots{color:#888;padding:0 4px;}
+            </style>
+        ";
+    }
+
     public function generateQrBooth($idbooth)
     {
         $booth = DB::table('booth')
