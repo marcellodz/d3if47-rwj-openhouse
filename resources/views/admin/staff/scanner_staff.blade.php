@@ -444,61 +444,61 @@
 
         }
 
-function extractIdUser(decodedText) {
+        function extractIdUser(decodedText) {
 
-    const clean = String(decodedText).trim();
+            const clean = String(decodedText).trim();
 
-    /*
-    =========================
-    FORMAT JSON
-    =========================
-    */
+            /*
+            =========================
+            FORMAT JSON
+            =========================
+            */
 
-    try {
+            try {
 
-        const obj = JSON.parse(clean);
+                const obj = JSON.parse(clean);
 
-        if (obj.type) {
+                if (obj.type) {
 
-            return obj;
+                    return obj;
+
+                }
+
+            } catch (e) { }
+
+            /*
+            =========================
+            FORMAT BOOTH-12
+            =========================
+            */
+
+            if (/^BOOTH-\d+$/i.test(clean)) {
+
+                return {
+                    type: "booth",
+                    idbooth: clean.replace(/^BOOTH-/i, "")
+                };
+
+            }
+
+            /*
+            =========================
+            FORMAT ANGKA LANGSUNG
+            =========================
+            */
+
+            if (/^\d+$/.test(clean)) {
+
+                return {
+                    type: "user",
+                    iduser: clean
+                };
+
+            }
+
+            return null;
 
         }
-
-    } catch (e) {}
-
-    /*
-    =========================
-    FORMAT BOOTH-12
-    =========================
-    */
-
-    if (/^BOOTH-\d+$/i.test(clean)) {
-
-        return {
-            type: "booth",
-            idbooth: clean.replace(/^BOOTH-/i, "")
-        };
-
-    }
-
-    /*
-    =========================
-    FORMAT ANGKA LANGSUNG
-    =========================
-    */
-
-    if (/^\d+$/.test(clean)) {
-
-        return {
-            type: "user",
-            iduser: clean
-        };
-
-    }
-
-    return null;
-
-}
         function getBackCameraIndex(devices) {
 
             const index =
@@ -747,25 +747,80 @@ function extractIdUser(decodedText) {
                 return;
             }
 
-            // QR Reward
-            if (typeof qr === "object" && qr.type === "claim") {
+            try {
 
-                await loadRewardContent(qr.iduser);
+                /*
+                =========================
+                QR CLAIM HADIAH
+                =========================
+                */
 
-            }
-            // QR Presensi Lama
-            else {
+                if (qr.type === "claim") {
 
-                const iduser =
-                    typeof qr === "object"
-                        ? qr.iduser
-                        : qr;
+                    await loadRewardContent(qr.iduser);
 
-                await loadStaffContent(iduser);
+                }
+
+                /*
+                =========================
+                QR USER / PRESENSI
+                =========================
+                */
+
+                else if (qr.type === "user") {
+
+                    await loadStaffContent(qr.iduser);
+
+                }
+
+                /*
+                =========================
+                QR BOOTH
+                =========================
+                */
+
+                else if (qr.type === "booth") {
+
+                    await processBooth(qr.idbooth);
+
+                }
+
+                /*
+                =========================
+                FORMAT LAMA (ANGKA)
+                =========================
+                */
+
+                else if (/^\d+$/.test(qr)) {
+
+                    await loadStaffContent(qr);
+
+                }
+
+                else {
+
+                    setResult(`
+                <span class="error">
+                    Tipe QR tidak dikenali.
+                </span>
+            `);
+
+                }
+
+            } catch (err) {
+
+                console.error(err);
+
+                setResult(`
+            <span class="error">
+                Gagal memproses QR.
+            </span>
+        `);
 
             }
 
             isProcessing = false;
+
         }
 
         function onScanFailure(errorMessage) {

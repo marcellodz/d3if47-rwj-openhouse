@@ -228,7 +228,21 @@
         =========================
         */
 
-        function onScanSuccess(decodedText) {
+        switch (qr.type) {
+
+    case "user":
+        await loadStaffContent(qr.iduser);
+        break;
+
+    case "claim":
+        await loadRewardContent(qr.iduser);
+        break;
+
+    case "booth":
+        // proses scan booth
+        break;
+
+}
 
             resultElement.innerHTML = `
         <i class="fas fa-search"></i>

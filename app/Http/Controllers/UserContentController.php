@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserContentController extends Controller
 {
-    
+
     public function load($type)
     {
         $iduser = session('iduser');
@@ -34,7 +34,7 @@ class UserContentController extends Controller
                 }
 
                 $qrData = json_encode([
-                    'type' => 'claim',
+                    'type' => 'user',
                     'iduser' => $iduser
                 ]);
 
