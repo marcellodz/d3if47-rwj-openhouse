@@ -56,18 +56,178 @@
 </head>
 
 <body>
-    <div class="qr-card">
-        <h2>{{ $booth->nama_booth }}</h2>
+<div class="qr-card">
 
-        <img src="{{ $qrUrl }}" alt="QR Booth">
+    <h2>{{ $booth->nama_booth }}</h2>
 
-        <div class="code">
-            {{ $qrCode }}
-        </div>
+    <img
+        id="qrImage"
+        src="{{ $qrUrl }}"
+        alt="QR Booth">
 
-        <a href="{{ url('/admin') }}">
-            Kembali ke Dashboard
-        </a>
+    <div class="code">
+        {{ $qrCode }}
     </div>
+
+    <div class="btn-group">
+
+        <button
+            class="btn btn-download"
+            onclick="downloadQR()">
+
+            ⬇ Download QR
+
+        </button>
+
+        <button
+            class="btn btn-print"
+            onclick="window.print()">
+
+            🖨 Print
+
+        </button>
+
+    </div>
+
+    <a
+        href="{{ url('/admin') }}"
+        class="btn-back">
+
+        ← Kembali ke Dashboard
+
+    </a>
+
+</div>
+
+<script>
+
+function downloadQR() {
+
+    const img = document.getElementById("qrImage");
+
+    fetch(img.src)
+        .then(response => response.blob())
+        .then(blob => {
+
+            const url = window.URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+
+            a.href = url;
+
+            a.download = "{{ $booth->nama_booth }}.png";
+
+            document.body.appendChild(a);
+
+            a.click();
+
+            a.remove();
+
+            window.URL.revokeObjectURL(url);
+
+        });
+
+}
+
+</script>
+
+<style>
+
+.btn-group{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    margin-top:20px;
+
+    margin-bottom:20px;
+
+}
+
+.btn{
+
+    border:none;
+
+    cursor:pointer;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.btn-download{
+
+    background:#28a745;
+
+    color:#fff;
+
+}
+
+.btn-download:hover{
+
+    background:#218838;
+
+}
+
+.btn-print{
+
+    background:#007bff;
+
+    color:#fff;
+
+}
+
+.btn-print:hover{
+
+    background:#0069d9;
+
+}
+
+.btn-back{
+
+    display:inline-block;
+
+    text-decoration:none;
+
+    padding:12px 24px;
+
+    border-radius:10px;
+
+    background:#444;
+
+    color:#fff;
+
+    transition:.25s;
+
+}
+
+.btn-back:hover{
+
+    background:#222;
+
+}
+
+@media print{
+
+    .btn-group,
+    .btn-back{
+
+        display:none;
+
+    }
+
+}
+
+</style>
 </body>
 </html>

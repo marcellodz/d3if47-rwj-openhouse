@@ -206,7 +206,7 @@ MODAL FORM STAFF
 
         <div class="modal-header">
 
-            <h2 id="formTitle">
+            <h2 id="staffFormTitle">
 
                 <i class="fas fa-user-gear"></i>
 

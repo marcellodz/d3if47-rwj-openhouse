@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\RewardConfig;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -1359,7 +1360,7 @@ class AdminController extends Controller
 
                 $html .= "
                 <button class='btn-add'
-                    onclick=\"openForm('add')\">
+    onclick=\"openForm('add')\">
 
                     <i class='fas fa-plus-circle'></i>
                     Tambah Admin/Staff
@@ -1711,7 +1712,9 @@ class AdminController extends Controller
         =========================
         */
 
-        $qrCode = 'BOOTH-' . $booth->idbooth;
+        $qrCode = json_encode([
+            'idbooth' => $booth->idbooth
+        ]);
 
         /*
         =========================
@@ -1831,5 +1834,187 @@ class AdminController extends Controller
             'Konfigurasi reward berhasil diperbarui.'
         );
     }
+
+    public function boothAction(Request $request)
+    {
+        try {
+
+            $action = $request->input('action');
+
+            switch ($action) {
+
+                /*
+                ============================
+                TAMBAH BOOTH
+                ============================
+                */
+                case 'add':
+
+                    $request->validate([
+                        'nama_booth' => 'required|max:100',
+                        'kategori' => 'required',
+                        'lantai' => 'required|integer',
+                    ]);
+
+                    $idBooth = DB::table('booth')->insertGetId([
+                        'nama_booth' => $request->nama_booth,
+                        'kategori' => $request->kategori,
+                        'lantai' => $request->lantai,
+                    ]);
+
+                    DB::table('booth')
+                        ->where('idbooth', $idBooth)
+                        ->update([
+                            'qr_code' => 'BOOTH-' . $idBooth
+                        ]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Booth berhasil ditambahkan.'
+                    ]);
+
+                /*
+                ============================
+                EDIT BOOTH
+                ============================
+                */
+                case 'edit':
+
+                    $request->validate([
+                        'id_booth' => 'required|integer',
+                        'nama_booth' => 'required|max:100',
+                        'kategori' => 'required',
+                        'lantai' => 'required|integer',
+                    ]);
+
+                    DB::table('booth')
+                        ->where('idbooth', $request->id_booth)
+                        ->update([
+                            'nama_booth' => $request->nama_booth,
+                            'kategori' => $request->kategori,
+                            'lantai' => $request->lantai,
+                        ]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Booth berhasil diperbarui.'
+                    ]);
+
+                /*
+                ============================
+                HAPUS BOOTH
+                ============================
+                */
+                case 'delete':
+
+                    $id = $request->id;
+
+                    if (!$id) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'ID booth tidak ditemukan.'
+                        ]);
+                    }
+
+                    DB::table('booth')
+                        ->where('idbooth', $id)
+                        ->delete();
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Booth berhasil dihapus.'
+                    ]);
+
+                default:
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Action tidak valid.'
+                    ]);
+            }
+
+        } catch (\Throwable $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+
+        }
+    }
+    public function staffAction(Request $request)
+    {
+        try {
+
+            switch ($request->action) {
+
+                case 'add':
+
+                    DB::table('admin_user')->insert([
+                        'nama_lengkap' => $request->nama_lengkap,
+                        'username' => $request->username,
+                        'password' => $request->password,
+                        'role' => $request->role,
+                    ]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Staff berhasil ditambahkan.'
+                    ]);
+
+                case 'edit':
+
+                    $update = [
+                        'nama_lengkap' => $request->nama_lengkap,
+                        'username' => $request->username,
+                        'role' => $request->role,
+                    ];
+
+                    if ($request->filled('password')) {
+                        $update['password'] = $request->password;
+                    }
+
+                    DB::table('admin_user')
+                        ->where('id_admin', $request->id_admin)
+                        ->update($update);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Staff berhasil diperbarui.'
+                    ]);
+
+                case 'delete':
+
+                    DB::table('admin_user')
+                        ->where('id_admin', $request->id_admin)
+                        ->delete();
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Staff berhasil dihapus.'
+                    ]);
+
+                default:
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Action tidak dikenali.'
+                    ]);
+
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+
+        }
+
+
+
+    }
+
 }
 
