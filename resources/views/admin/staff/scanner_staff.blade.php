@@ -444,45 +444,61 @@
 
         }
 
-        function extractIdUser(decodedText) {
+function extractIdUser(decodedText) {
 
-            const clean =
-                String(decodedText).trim();
+    const clean = String(decodedText).trim();
 
-            /*
-            =========================
-            FORMAT JSON
-            =========================
-            */
+    /*
+    =========================
+    FORMAT JSON
+    =========================
+    */
 
-            try {
+    try {
 
-                const obj = JSON.parse(clean);
+        const obj = JSON.parse(clean);
 
-                if (obj.type && obj.iduser) {
+        if (obj.type) {
 
-                    return obj;
-
-                }
-
-            } catch (e) { }
-
-            /*
-            =========================
-            FORMAT ANGKA LANGSUNG
-            =========================
-            */
-
-            if (/^\d+$/.test(clean)) {
-
-                return clean;
-
-            }
-
-            return null;
+            return obj;
 
         }
 
+    } catch (e) {}
+
+    /*
+    =========================
+    FORMAT BOOTH-12
+    =========================
+    */
+
+    if (/^BOOTH-\d+$/i.test(clean)) {
+
+        return {
+            type: "booth",
+            idbooth: clean.replace(/^BOOTH-/i, "")
+        };
+
+    }
+
+    /*
+    =========================
+    FORMAT ANGKA LANGSUNG
+    =========================
+    */
+
+    if (/^\d+$/.test(clean)) {
+
+        return {
+            type: "user",
+            iduser: clean
+        };
+
+    }
+
+    return null;
+
+}
         function getBackCameraIndex(devices) {
 
             const index =
