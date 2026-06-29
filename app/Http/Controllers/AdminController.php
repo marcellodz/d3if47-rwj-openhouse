@@ -1611,6 +1611,330 @@ class AdminController extends Controller
         return response($html);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | SUPER ADMIN - CRUD BOOTH
+    |--------------------------------------------------------------------------
+    */
+
+    public function boothAction(Request $request)
+    {
+        /*
+        =========================
+        CEK LOGIN SUPERADMIN
+        =========================
+        */
+
+        if (!session('admin_loggedin') || session('role') !== 'superadmin') {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Akses ditolak.'
+            ], 403);
+
+        }
+
+        $action = $request->input('action');
+
+        switch ($action) {
+
+            /*
+            =========================
+            TAMBAH BOOTH
+            =========================
+            */
+
+            case 'add':
+
+                $request->validate([
+                    'nama_booth' => 'required|string|max:255',
+                    'kategori' => 'required|string|max:255',
+                    'lantai' => 'required|string|max:255',
+                ]);
+
+                DB::table('booth')->insert([
+                    'nama_booth' => $request->input('nama_booth'),
+                    'kategori' => $request->input('kategori'),
+                    'lantai' => $request->input('lantai'),
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Booth berhasil ditambahkan.'
+                ]);
+
+            /*
+            =========================
+            EDIT BOOTH
+            =========================
+            */
+
+            case 'edit':
+
+                $request->validate([
+                    'id_booth' => 'required',
+                    'nama_booth' => 'required|string|max:255',
+                    'kategori' => 'required|string|max:255',
+                    'lantai' => 'required|string|max:255',
+                ]);
+
+                $idBooth = $request->input('id_booth');
+
+                $exists = DB::table('booth')
+                    ->where('idbooth', $idBooth)
+                    ->exists();
+
+                if (!$exists) {
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Booth tidak ditemukan.'
+                    ]);
+
+                }
+
+                DB::table('booth')
+                    ->where('idbooth', $idBooth)
+                    ->update([
+                        'nama_booth' => $request->input('nama_booth'),
+                        'kategori' => $request->input('kategori'),
+                        'lantai' => $request->input('lantai'),
+                    ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Booth berhasil diperbarui.'
+                ]);
+
+            /*
+            =========================
+            HAPUS BOOTH
+            =========================
+            */
+
+            case 'delete':
+
+                $idBooth = $request->input('id');
+
+                if (!$idBooth) {
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'ID booth tidak valid.'
+                    ]);
+
+                }
+
+                $exists = DB::table('booth')
+                    ->where('idbooth', $idBooth)
+                    ->exists();
+
+                if (!$exists) {
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Booth tidak ditemukan.'
+                    ]);
+
+                }
+
+                DB::table('booth')
+                    ->where('idbooth', $idBooth)
+                    ->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Booth berhasil dihapus.'
+                ]);
+
+            default:
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Action tidak dikenali.'
+                ], 400);
+
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SUPER ADMIN - CRUD STAFF / ADMIN
+    |--------------------------------------------------------------------------
+    */
+
+    public function staffAction(Request $request)
+    {
+        /*
+        =========================
+        CEK LOGIN SUPERADMIN
+        =========================
+        */
+
+        if (!session('admin_loggedin') || session('role') !== 'superadmin') {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Akses ditolak.'
+            ], 403);
+
+        }
+
+        $action = $request->input('action');
+
+        switch ($action) {
+
+            /*
+            =========================
+            TAMBAH ADMIN/STAFF
+            =========================
+            */
+
+            case 'add':
+
+                $request->validate([
+                    'nama_lengkap' => 'required|string|max:255',
+                    'username' => 'required|string|max:255|unique:admin_user,username',
+                    'password' => 'required|string|min:6',
+                    'role' => 'required|in:superadmin,staff',
+                ]);
+
+                DB::table('admin_user')->insert([
+                    'nama_lengkap' => $request->input('nama_lengkap'),
+                    'username' => $request->input('username'),
+                    'password' => bcrypt($request->input('password')),
+                    'role' => $request->input('role'),
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Admin/Staff berhasil ditambahkan.'
+                ]);
+
+            /*
+            =========================
+            EDIT ADMIN/STAFF
+            =========================
+            */
+
+            case 'edit':
+
+                $request->validate([
+                    'id_admin' => 'required',
+                    'nama_lengkap' => 'required|string|max:255',
+                    'username' => 'required|string|max:255|unique:admin_user,username,' . $request->input('id_admin') . ',id_admin',
+                    'role' => 'required|in:superadmin,staff',
+                ]);
+
+                $idAdmin = $request->input('id_admin');
+
+                $exists = DB::table('admin_user')
+                    ->where('id_admin', $idAdmin)
+                    ->exists();
+
+                if (!$exists) {
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Data admin/staff tidak ditemukan.'
+                    ]);
+
+                }
+
+                $updateData = [
+                    'nama_lengkap' => $request->input('nama_lengkap'),
+                    'username' => $request->input('username'),
+                    'role' => $request->input('role'),
+                ];
+
+                /*
+                =========================
+                PASSWORD OPSIONAL SAAT EDIT
+                =========================
+                */
+
+                if ($request->filled('password')) {
+
+                    $updateData['password'] =
+                        bcrypt($request->input('password'));
+
+                }
+
+                DB::table('admin_user')
+                    ->where('id_admin', $idAdmin)
+                    ->update($updateData);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Admin/Staff berhasil diperbarui.'
+                ]);
+
+            /*
+            =========================
+            HAPUS ADMIN/STAFF
+            =========================
+            */
+
+            case 'delete':
+
+                $idAdmin = $request->input('id');
+
+                if (!$idAdmin) {
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'ID tidak valid.'
+                    ]);
+
+                }
+
+                /*
+                =========================
+                CEGAH HAPUS DIRI SENDIRI
+                =========================
+                */
+
+                if (session('id_admin') == $idAdmin) {
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Tidak bisa menghapus akun sendiri.'
+                    ]);
+
+                }
+
+                $exists = DB::table('admin_user')
+                    ->where('id_admin', $idAdmin)
+                    ->exists();
+
+                if (!$exists) {
+
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Data admin/staff tidak ditemukan.'
+                    ]);
+
+                }
+
+                DB::table('admin_user')
+                    ->where('id_admin', $idAdmin)
+                    ->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Admin/Staff berhasil dihapus.'
+                ]);
+
+            default:
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Action tidak dikenali.'
+                ], 400);
+
+        }
+    }
+
     private function buildPaginationHtml(int $page, int $totalPage, string $type): string
     {
         if ($totalPage <= 1) {
@@ -1832,4 +2156,3 @@ class AdminController extends Controller
         );
     }
 }
-
